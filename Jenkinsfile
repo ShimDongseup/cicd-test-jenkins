@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    enviroment {
+    environment {
         strDockerImage = "shimdongseup/cicd-test:0.1"
     }
 
