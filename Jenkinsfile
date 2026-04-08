@@ -14,10 +14,19 @@ pipeline {
             }
         }
         stage('Docker Image Build') {
-            steps {
+            script {
+
                 oDockImage = docker.build(strDockerImage,"-f Dockerfile .")
             }
         }
+        stage('Docker Image Push') {
+            steps {
+                docker.withRegistry('', 'docker-auth') {
+                    oDockImage.push()
+                }
+            }
+        }
+        
         stage('Deploy Server') {
             steps{
                 sshagent(credentials:['Deploy-Privatekey']){
