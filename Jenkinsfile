@@ -1,10 +1,13 @@
-def oDockImage // 스테이지 간 변수 공유를 위해 상단에 선언
+import java.text.SimpleDateFormat
+
+def TODAY = new SimpleDateFormat("yyyyMMdd").format(new Date())
 
 pipeline {
     agent any
 
     environment {
-        strDockerImage = "shimdongseup/cicd-test:0.1"
+        strDockerTag = "${TODAY}_${BUILD_ID}"
+        strDockerImage = "shimdongseup/cicd-test:${strDockerTag}"
     }
 
     stages {
